@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'dart:developer';
-
+import 'package:dart_ping_ios/dart_ping_ios.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:network_tools/network_tools.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:smartiotconnect/ap/cubit/iot_starter_connection_cubit.dart';
 import 'package:smartiotconnect/ap/cubit/network_cubit.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -22,6 +25,11 @@ class AppBlocObserver extends BlocObserver {
 }
 
 Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Register DartPingIOS
+  DartPingIOS.register();
+  final appDocDirectory = await getApplicationDocumentsDirectory();
+  await configureNetworkTools(appDocDirectory.path, enableDebugging: true);
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
@@ -35,6 +43,9 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
       providers: [
         BlocProvider<NetworkConfigFormCubit>(
           create: (_) => NetworkConfigFormCubit(),
+        ),
+        BlocProvider<IotStarterConnectionCubit>(
+          create: (_) => IotStarterConnectionCubit(),
         ),
       ],
       child: await builder(),

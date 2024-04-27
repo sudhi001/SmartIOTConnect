@@ -23,8 +23,8 @@
 	</array>
 	<key>com.apple.developer.networking.HotspotConfiguration</key>
 <true/>
-<key>com.apple.developer.networking.wifi-info</key>
-<true/>
+<key>NSLocalNetworkUsageDescription</key>
+<string>Required to discover local network devices</string>
 	<key>CFBundleName</key>
 	<string>$(FLAVOR_APP_NAME)</string>
 	<key>CFBundlePackageType</key>

@@ -23,7 +23,6 @@ class NetworkAPI {
 
   static Future<dynamic> postNetworkConfig({
     required String password,
-    required String deviceId,
     required String ssid,
     required String baseUrl,
   }) async {
@@ -31,9 +30,7 @@ class NetworkAPI {
     final headers = <String, String>{'Content-Type': 'application/json'};
     final body = <String, dynamic>{
       'password': password,
-      'deviceId': deviceId,
       'ssid': ssid,
-      'token': 'AIzaSyAo0cIhTCobdtNek9d6bES_pSp4CjrbIPE',
     };
 
     final response = await http.post(

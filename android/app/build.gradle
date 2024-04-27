@@ -37,7 +37,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -58,21 +57,29 @@ android {
     }
 
     signingConfigs {
-        if (System.getenv("ANDROID_KEYSTORE_PATH")) {
+       // if (System.getenv("ANDROID_KEYSTORE_PATH")) {
             release {
-                storeFile file(System.getenv("ANDROID_KEYSTORE_PATH"))
-                keyAlias System.getenv("ANDROID_KEYSTORE_ALIAS")
-                keyPassword System.getenv("ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
-                storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
+                    keyAlias keystoreProperties['keyAlias']
+                    keyPassword keystoreProperties['keyPassword']
+                    storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+                    storePassword keystoreProperties['storePassword']
+                // storeFile file(System.getenv("ANDROID_KEYSTORE_PATH"))
+                // keyAlias System.getenv("ANDROID_KEYSTORE_ALIAS")
+                // keyPassword System.getenv("ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
+                // storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
             }
-        } else {
+       // } else {
             release {
                 keyAlias keystoreProperties['keyAlias']
                 keyPassword keystoreProperties['keyPassword']
                 storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
                 storePassword keystoreProperties['storePassword']
+                // keyAlias keystoreProperties['keyAlias']
+                // keyPassword keystoreProperties['keyPassword']
+                // storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+                // storePassword keystoreProperties['storePassword']
             }
-        }
+       // }
     }
 
     flavorDimensions "default"
