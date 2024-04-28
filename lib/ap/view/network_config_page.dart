@@ -32,10 +32,10 @@ class NetworkConfigForm extends StatelessWidget {
                         final host = context
                             .read<IotStarterConnectionCubit>()
                             .state
-                            .activeHost;
+                            .address;
                         if (host != null) {
                           NetworkAPI.resetDevice(
-                            baseUrl: host.address,
+                            baseUrl: host,
                           ).then((value) {
                             Navigator.pop(context);
                           }).onError((error, stackTrace) {
@@ -61,8 +61,8 @@ class NetworkConfigForm extends StatelessWidget {
           body: Padding(
             padding: const EdgeInsets.all(16),
             child: BlocBuilder<NetworkConfigFormCubit, NetworkConfigState>(
-              builder: (context, state) {
-                if (state is NetworkConfigStateLoading) {
+              builder: (context, networkstate) {
+                if (networkstate is NetworkConfigStateLoading) {
                   return const Center(
                     child: Padding(
                       padding: EdgeInsets.all(16),
@@ -195,7 +195,7 @@ class NetworkConfigForm extends StatelessWidget {
                               );
                         },
                       ),
-                      if (state is NetworkConfigStateLoading)
+                      if (networkstate is NetworkConfigStateLoading)
                         const Padding(
                           padding: EdgeInsets.symmetric(vertical: 16),
                           child: Center(
@@ -235,10 +235,7 @@ class NetworkConfigForm extends StatelessWidget {
                                       context
                                           .read<NetworkConfigFormCubit>()
                                           .postNetworkConfig(
-                                              context
-                                                  .read<
-                                                      NetworkConfigFormCubit>()
-                                                  .state, () {
+                                              state.address, networkstate, () {
                                         Navigator.pop(context);
                                       });
                                     }

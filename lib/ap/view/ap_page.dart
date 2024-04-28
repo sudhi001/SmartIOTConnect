@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:network_tools/network_tools.dart';
 import 'package:smartiotconnect/ap/cubit/iot_starter_connection_cubit.dart';
 import 'package:smartiotconnect/ap/cubit/network_cubit.dart';
 import 'package:smartiotconnect/ap/view/network_config_page.dart';
@@ -41,10 +40,10 @@ class APPage extends StatelessWidget {
             bottomNavigationBar: SafeArea(
               child: TextButton.icon(
                 onPressed: () {
-                  if (state.activeHost != null) {
+                  if (state.address != null) {
                     context
                         .read<IotStarterConnectionCubit>()
-                        .init(context, state.activeHost!);
+                        .init(context, state.address!);
                   } else {}
                 },
                 icon: const Icon(Icons.refresh),
@@ -76,27 +75,24 @@ class APPage extends StatelessWidget {
                                     8,
                                   ), // Optional: rounded corners
                                 ),
-                                child: DropdownButton<ActiveHost>(
+                                child: DropdownButton<String>(
                                   underline: Container(),
                                   style: const TextStyle(
                                     color: Colors.red,
                                     fontSize: 16,
                                   ),
-                                  value: context
-                                      .read<IotStarterConnectionCubit>()
-                                      .state
-                                      .activeHost,
+                                  value: state.address,
                                   items: networkState.ipAddresses.map((ip) {
-                                    return DropdownMenuItem<ActiveHost>(
+                                    return DropdownMenuItem<String>(
                                       value: ip,
-                                      child: Text(ip.address),
+                                      child: Text(ip),
                                     );
                                   }).toList(),
-                                  onChanged: (ActiveHost? newValue) {
+                                  onChanged: (String? newValue) {
                                     networkcontext
                                         .read<NetworkConfigFormCubit>()
                                         .submitForm(
-                                          deviceIP: newValue?.address ?? '',
+                                          deviceIP: newValue ?? '',
                                           password: networkcontext
                                               .read<NetworkConfigFormCubit>()
                                               .state
@@ -119,7 +115,8 @@ class APPage extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () {
-                        if (state.activeHost != null) {
+                        if (state.address != null) {
+                          context.read<IotStarterConnectionCubit>().reset();
                           context.read<NetworkCubit>().scanNetwork();
                         } else {}
                       },

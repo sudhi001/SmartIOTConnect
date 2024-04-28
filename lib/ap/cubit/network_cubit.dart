@@ -85,12 +85,19 @@ class NetworkConfigFormCubit extends Cubit<NetworkConfigState> {
     );
   }
 
-  void postNetworkConfig(NetworkConfigState state, Function onCallBack) {
+  void postNetworkConfig(
+    String? address,
+    NetworkConfigState state,
+    Function onCallBack,
+  ) {
+    if (state is NetworkConfigStateLoading) {
+      return;
+    }
     emit(NetworkConfigStateLoading());
     NetworkAPI.postNetworkConfig(
       password: state.password,
       ssid: state.ssid,
-      baseUrl: 'http://${state.deviceIP}',
+      baseUrl: 'http://${address ?? state.deviceIP}',
     ).then((value) {
       emit(
         SubmitFormEvent(
@@ -99,6 +106,7 @@ class NetworkConfigFormCubit extends Cubit<NetworkConfigState> {
           deviceIP: state.deviceIP,
         ),
       );
+      // ignore: avoid_dynamic_calls
       onCallBack.call();
     }).catchError((error) {
       emit(
@@ -108,6 +116,7 @@ class NetworkConfigFormCubit extends Cubit<NetworkConfigState> {
           deviceIP: state.deviceIP,
         ),
       );
+      // ignore: avoid_dynamic_calls
       onCallBack.call();
     });
   }
@@ -116,7 +125,7 @@ class NetworkConfigFormCubit extends Cubit<NetworkConfigState> {
 class NetworkState extends Equatable {
   const NetworkState({required this.ipAddresses});
 
-  final List<ActiveHost> ipAddresses;
+  final List<String> ipAddresses;
 
   @override
   List<Object?> get props => [ipAddresses];
@@ -139,13 +148,13 @@ class NetworkCubit extends Cubit<NetworkState> {
     try {
       emit(const NetworkStateLoading());
       final interface = await NetInterface.localInterface();
-      final hosts = <ActiveHost>[];
+      final hosts = <String>[];
       await for (final host
           in HostScannerService.instance.scanDevicesForSinglePort(
         interface!.ipAddress.substring(0, interface.ipAddress.lastIndexOf('.')),
         80,
       )) {
-        hosts.add(host);
+        hosts.add(host.address);
       }
       emit(NetworkState(ipAddresses: hosts));
     } catch (e) {
