@@ -2,13 +2,13 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smartiotconnect/ap/cubit/device_storage_cubit.dart';
 import 'package:smartiotconnect/app_logger.dart';
+import 'package:smartiotconnect/soundpool.dart';
 
 class RECIVE {
   static const service = 'f2f9a4de-ef95-4fe1-9c2e-ab5ef6f0d6e9';
@@ -52,7 +52,9 @@ class BluetoothConnector {
   int? get current => _controller.value;
   DeviceConnectionCubit? _connectionCubit;
   BluetoothAdapterState adapterState = BluetoothAdapterState.unknown;
+  SoundEffects? soundEffects;
   Future<void> startScan(BuildContext context) async {
+    soundEffects = SoundProvider.of(context);
     _connectionCubit = context.read<DeviceConnectionCubit>();
     if (!isScanning) {
       _systemDevices = FlutterBluePlus.connectedDevices.isEmpty
@@ -64,6 +66,7 @@ class BluetoothConnector {
         logger.i('Connected: ${connected.platformName}');
         final value = await setDevice(connected);
         if (value) {
+          await soundEffects?.information!.play();
           _connectionCubit?.connected();
         }
       }
@@ -77,7 +80,8 @@ class BluetoothConnector {
     }
   }
 
-  void setLog(String msg) {
+  Future<void> setLog(String msg) async {
+    await soundEffects?.typingLong!.play();
     getStringStreamController()?.sink.add('{"action":"LOG","log":"$msg"}');
   }
 
@@ -85,7 +89,7 @@ class BluetoothConnector {
     _connectionCubit = context.read<DeviceConnectionCubit>();
     await device?.disconnect();
     if (device?.isDisconnected ?? false) {
-      setLog('Disconnected');
+      await setLog('Disconnected');
       _connectionCubit?.disConnected();
 
       map.clear();
@@ -129,10 +133,10 @@ class BluetoothConnector {
 
   Future<bool> setDevice(BluetoothDevice bledevice) async {
     if (bledevice.platformName.isNotEmpty) {
-      setLog('Found Device ${bledevice.platformName}');
+      await setLog('Found Device ${bledevice.platformName}');
     }
     if (bledevice.platformName == 'SMART_IOT') {
-      setLog('Connected: ${bledevice.platformName}');
+      await setLog('Connected: ${bledevice.platformName}');
       await stopScan();
       logger.i(bledevice.platformName);
 
@@ -178,9 +182,9 @@ class BluetoothConnector {
       return true;
     } else {
       if (bledevice.isConnected) {
-        setLog('Device ${bledevice.platformName} is already connectd.');
+        await setLog('Device ${bledevice.platformName} is already connectd.');
         await bledevice.disconnect();
-        setLog('Device ${bledevice.platformName} is disconnected.');
+        await setLog('Device ${bledevice.platformName} is disconnected.');
       }
       return false;
     }
@@ -196,7 +200,7 @@ class BluetoothConnector {
     T Function(List<int>) parse,
   ) async {
     final characteristic = map[characteristicGuid];
-    characteristic?.onValueReceived.listen((onData) {
+    characteristic?.onValueReceived.listen((onData) async {
       if (!controller.isClosed) {
         connectd();
         final value = parse(onData);
@@ -270,6 +274,7 @@ class BluetoothConnector {
   }
 
   void disconnectd() {
+    soundEffects?.warning!.play();
     setLog('Device disconnectd');
     _connectionCubit?.disConnected();
   }

@@ -60,6 +60,7 @@ class NetworkConfigForm extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   TextFormField(
+                    style: const TextStyle(color: Colors.white),
                     initialValue: context.read<DeviceStorageCubit>().state.ssid,
                     decoration: const InputDecoration(
                       labelText: 'SSID',
@@ -90,6 +91,7 @@ class NetworkConfigForm extends StatelessWidget {
                     },
                   ),
                   TextFormField(
+                    style: const TextStyle(color: Colors.white),
                     initialValue:
                         context.read<DeviceStorageCubit>().state.password,
                     decoration: const InputDecoration(

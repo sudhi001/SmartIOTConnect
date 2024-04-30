@@ -16,9 +16,10 @@ class BottomSheetUtils {
               const SizedBox(height: 32),
               Text(
                 message,
-                style: const TextStyle(
-                  fontSize: 16,
-                ),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(color: Colors.green),
               ),
               const SizedBox(height: 16),
               Row(
@@ -59,17 +60,18 @@ class BottomSheetUtils {
             children: <Widget>[
               Text(
                 title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(color: Colors.green),
               ),
               const SizedBox(height: 16),
               Text(
                 message,
-                style: const TextStyle(
-                  fontSize: 16,
-                ),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(color: Colors.green),
               ),
               const SizedBox(height: 16),
               Row(
