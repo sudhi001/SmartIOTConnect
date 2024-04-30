@@ -126,7 +126,7 @@ class APPage extends StatelessWidget {
                               );
                   },
                 ),
-              )
+              ),
             ],
           ),
         );
@@ -135,41 +135,99 @@ class APPage extends StatelessWidget {
   }
 
   List<Widget> _buildDataWidgets(
-      Map<String, dynamic> dataMap, BuildContext context) {
+    Map<String, dynamic> dataMap,
+    BuildContext context,
+  ) {
     return [
-      _buildDataWidget(dataMap, 'Device WiFi Local IP',
-          dataMap['deviceWifiLocalIP'], context),
       _buildDataWidget(
-          dataMap, 'Soil Moisture', dataMap['soilMoisture'], context),
+        dataMap,
+        'Device WiFi Local IP',
+        dataMap['deviceWifiLocalIP'],
+        context,
+      ),
       _buildDataWidget(
-          dataMap, 'Soil Temperature', dataMap['soilTemperature'], context),
+        dataMap,
+        'Soil Moisture',
+        dataMap['soilMoisture'],
+        context,
+      ),
+      _buildDataWidget(
+        dataMap,
+        'Soil Temperature',
+        dataMap['soilTemperature'],
+        context,
+      ),
       _buildDataWidget(dataMap, 'Soil EC', dataMap['soilEC'], context),
       _buildDataWidget(dataMap, 'Soil PH', dataMap['soilPH'], context),
       _buildDataWidget(
-          dataMap, 'Soil Nitrogen', dataMap['soilNitrogen'], context),
+        dataMap,
+        'Soil Nitrogen',
+        dataMap['soilNitrogen'],
+        context,
+      ),
       _buildDataWidget(
-          dataMap, 'Soil Phosphorous', dataMap['soilPhosphorous'], context),
+        dataMap,
+        'Soil Phosphorous',
+        dataMap['soilPhosphorous'],
+        context,
+      ),
       _buildDataWidget(
-          dataMap, 'Soil Potassium', dataMap['soilPotassium'], context),
-      _buildDataWidget(dataMap, 'Atmospheric Temperature',
-          dataMap['atmosphericTemperature'], context),
-      _buildDataWidget(dataMap, 'Atmospheric Humidity',
-          dataMap['atmosphericHumidity'], context),
-      _buildDataWidget(dataMap, 'Spray Module Status',
-          dataMap['sprayModuleStatus'], context),
-      _buildDataWidget(dataMap, 'Water Module Status',
-          dataMap['waterModuleStatus'], context),
+        dataMap,
+        'Soil Potassium',
+        dataMap['soilPotassium'],
+        context,
+      ),
       _buildDataWidget(
-          dataMap, 'Will Spray On', dataMap['willSprayOn'], context),
-      _buildDataWidget(dataMap, 'Will Water Module On',
-          dataMap['willWaterModuleOn'], context),
+        dataMap,
+        'Atmospheric Temperature',
+        dataMap['atmosphericTemperature'],
+        context,
+      ),
       _buildDataWidget(
-          dataMap, 'Is WiFi Connected', dataMap['isWIFIConnectd'], context),
+        dataMap,
+        'Atmospheric Humidity',
+        dataMap['atmosphericHumidity'],
+        context,
+      ),
+      _buildDataWidget(
+        dataMap,
+        'Spray Module Status',
+        dataMap['sprayModuleStatus'],
+        context,
+      ),
+      _buildDataWidget(
+        dataMap,
+        'Water Module Status',
+        dataMap['waterModuleStatus'],
+        context,
+      ),
+      _buildDataWidget(
+        dataMap,
+        'Will Spray On',
+        dataMap['willSprayOn'],
+        context,
+      ),
+      _buildDataWidget(
+        dataMap,
+        'Will Water Module On',
+        dataMap['willWaterModuleOn'],
+        context,
+      ),
+      _buildDataWidget(
+        dataMap,
+        'Is WiFi Connected',
+        dataMap['isWIFIConnectd'],
+        context,
+      ),
     ];
   }
 
-  Widget _buildDataWidget(Map<String, dynamic> dataMap, String title,
-      dynamic value, BuildContext context) {
+  Widget _buildDataWidget(
+    Map<String, dynamic> dataMap,
+    String title,
+    dynamic value,
+    BuildContext context,
+  ) {
     return Text(
       '$title: $value',
       style: Theme.of(context)
