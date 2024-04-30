@@ -14,8 +14,6 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-<string>We need your location to provide accurate weather forecasts.</string>
 	<key>CFBundleLocalizations</key>
 	<array>
 		<string>en</string>
@@ -23,8 +21,16 @@
 	</array>
 	<key>com.apple.developer.networking.HotspotConfiguration</key>
 <true/>
-<key>NSLocalNetworkUsageDescription</key>
-<string>Required to discover local network devices</string>
+	    <key>NSBluetoothAlwaysUsageDescription</key>  
+	    <string>Need BLE permission</string>  
+	    <key>NSBluetoothPeripheralUsageDescription</key>  
+	    <string>Need BLE permission</string>  
+	    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>  
+	    <string>Need Location permission</string>  
+	    <key>NSLocationAlwaysUsageDescription</key>  
+	    <string>Need Location permission</string>  
+	    <key>NSLocationWhenInUseUsageDescription</key>  
+	    <string>Need Location permission</string>
 	<key>CFBundleName</key>
 	<string>$(FLAVOR_APP_NAME)</string>
 	<key>CFBundlePackageType</key>
