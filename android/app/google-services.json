@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "536830413246",
+    "firebase_url": "https://smartagri-41ab6-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "smartagri-41ab6",
+    "storage_bucket": "smartagri-41ab6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:536830413246:android:c67334264aff3b459951ef",
+        "android_client_info": {
+          "package_name": "in.sudhi.app.smartiotconnect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqRIkm6J9nWgbLLce5gxNlDsvrX-n6Ayo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
