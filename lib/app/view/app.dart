@@ -34,7 +34,7 @@ class App extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: SoundProvider(child: APPage()),
+      home: const SoundProvider(child: APPage()),
     );
   }
 }
