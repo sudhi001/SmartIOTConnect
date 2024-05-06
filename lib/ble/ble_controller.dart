@@ -2,12 +2,13 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:smartiotconnect/ap/cubit/device_storage_cubit.dart';
-import 'package:smartiotconnect/app_logger.dart';
+import 'package:smartiotconnect/app/cubit/device_storage_cubit.dart';
+import 'package:smartiotconnect/di.dart';
 import 'package:smartiotconnect/soundpool.dart';
 
 class RECIVE {
