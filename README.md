@@ -1,4 +1,4 @@
-```markdown
+
 # Smart IoT Connect
 
 Smart IoT Connect is a Flutter application tested on Android  . The application facilitates the connection between my IoT devices and my phone. The application provides the following functionalities:
