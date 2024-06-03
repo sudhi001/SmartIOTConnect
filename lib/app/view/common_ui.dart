@@ -1,22 +1,20 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-
 List<Widget> buildDataWidgets(
-    Map<String, dynamic> dataMap,
-    BuildContext context,
-    {bool withTime=false,}
-    ) {
+  Map<String, dynamic> dataMap,
+  BuildContext context, {
+  bool withTime = false,
+}) {
   return [
-    if(withTime) _buildDataWidget(
-      dataMap,
-      'Time',
-      formattedTime(dataMap['timestamp'] )
-      ,
-      context,
-    ),
+    if (withTime)
+      _buildDataWidget(
+        dataMap,
+        'Time',
+        formattedTime(dataMap['timestamp'] as Timestamp),
+        context,
+      ),
     _buildDataWidget(
       dataMap,
       'Device WiFi Local IP',
@@ -101,16 +99,17 @@ List<Widget> buildDataWidgets(
 }
 
 String formattedTime(Timestamp dateString) {
- final dateTime = DateTime.fromMillisecondsSinceEpoch(dateString.millisecondsSinceEpoch);
- return DateFormat.yMd().add_jms().format(dateTime);
+  final dateTime =
+      DateTime.fromMillisecondsSinceEpoch(dateString.millisecondsSinceEpoch);
+  return DateFormat.yMd().add_jms().format(dateTime);
 }
 
 Widget _buildDataWidget(
-    Map<String, dynamic> dataMap,
-    String title,
-    dynamic value,
-    BuildContext context,
-    ) {
+  Map<String, dynamic> dataMap,
+  String title,
+  dynamic value,
+  BuildContext context,
+) {
   return Text(
     '$title: $value',
     style: Theme.of(context)
