@@ -24,7 +24,7 @@ dependencies:
   permission_handler: ^11.3.1
   rxdart: ^0.28.0
   intl: ^0.19.0
-  shared_preferences: ^2.2.3
+  shared_preferences: ^2.4.0
   soundpool: ^2.4.1
   csv: ^6.0.0
   firebase_ui_auth: ^1.15.0
